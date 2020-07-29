@@ -79,12 +79,13 @@ public class EstadiaServiceImpl implements EstadiaService{
     }
 
     private Hospede findHospede(Hospede hospede) throws Exception {
-        Hospede hospedePersistido = hospedeService.findFirstByNomeOrNumeroDocumentoOrNumeroTelefone(
+        Hospede hospedePersistido = hospedeService.findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(
+                hospede.getId(),
                 hospede.getNome(),
                 hospede.getNumeroDocumento(),
                 hospede.getNumeroTelefone());
 
-        if (hospede == null) {
+        if (hospedePersistido == null) {
             throw new Exception("Não foi encontrado um hospede com os dados informados");
         } else {
             return hospedePersistido;
@@ -104,7 +105,7 @@ public class EstadiaServiceImpl implements EstadiaService{
             }
         }
 
-        if (dataSaida.getHour() >= 16 && dataSaida.getMinute() >= 30) {
+        if (dataSaida.getHour() >= 16 && dataSaida.getMinute() > 30) {
             valorEstadia = valorEstadia.add(this.getValorDiaria(dataSaida.getDayOfWeek()));
         }
 

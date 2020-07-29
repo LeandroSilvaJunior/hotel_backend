@@ -50,6 +50,55 @@ public class HospedeServiceController implements ServiceController{
         }
     }
 
+    @GetMapping("/inHotel")
+    public ResponseEntity<?> listAllInHotel(Pageable pageable) {
+        try {
+            Page<HospedeVO> hospedes = hospedeService.findAllinHotel(pageable);
+
+            if (hospedes == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(hospedes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @GetMapping("/notInHotel")
+    public ResponseEntity<?> listAllNotInHotel(Pageable pageable) {
+        try {
+            Page<HospedeVO> hospedes = hospedeService.findAllNotinHotel(pageable);
+
+            if (hospedes == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(hospedes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @GetMapping("/filtro")
+    public ResponseEntity<?> listAllByNomeOrNumeroDocumentoOrNumeroTelefone(
+            @PathParam("nome") String nome,
+            @PathParam("numeroDocumento") String numeroDocumento,
+            @PathParam("numeroTelefone") String numeroTelefone,
+            Pageable pageable) {
+        try {
+            Page<Hospede> hospedes = hospedeService.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone, pageable);
+
+            if (hospedes == null) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(hospedes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid Hospede hospede) {
         try {
@@ -78,36 +127,6 @@ public class HospedeServiceController implements ServiceController{
         try {
             hospedeService.delete(id);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-
-    @GetMapping("/inHotel")
-    public ResponseEntity<?> listAllInHotel(Pageable pageable) {
-        try {
-            Page<HospedeVO> hospedes = hospedeService.findAllinHotel(pageable);
-
-            if (hospedes == null) {
-                return ResponseEntity.notFound().build();
-            } else {
-                return ResponseEntity.ok(hospedes);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-
-    @GetMapping("/notInHotel")
-    public ResponseEntity<?> listAllNotInHotel(Pageable pageable) {
-        try {
-            Page<HospedeVO> hospedes = hospedeService.findAllNotinHotel(pageable);
-
-            if (hospedes == null) {
-                return ResponseEntity.notFound().build();
-            } else {
-                return ResponseEntity.ok(hospedes);
-            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

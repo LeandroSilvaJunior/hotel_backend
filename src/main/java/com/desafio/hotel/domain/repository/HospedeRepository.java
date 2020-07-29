@@ -1,6 +1,7 @@
 package com.desafio.hotel.domain.repository;
 
 import com.desafio.hotel.domain.entity.Hospede;
+import com.desafio.hotel.domain.repository.customRepository.HospedeCustomReposotory;
 import com.desafio.hotel.vo.HospedeVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,9 +10,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HospedeRepository extends JpaRepository<Hospede, Long> {
+public interface HospedeRepository extends JpaRepository<Hospede, Long>, HospedeCustomReposotory {
 
-    Hospede findFirstByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone);
+    Hospede findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(
+            Long id,
+            String nome,
+            String numeroDocumento,
+            String numeroTelefone);
 
     @Query(value = "select distinct new com.desafio.hotel.vo.HospedeVO(h) " +
             "from Hospede h " +

@@ -17,7 +17,9 @@ public interface HospedeService {
 
     void delete(Long id) throws Exception;
 
-    Hospede findFirstByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone);
+    Hospede findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(Long id, String nome, String numeroDocumento, String numeroTelefone);
+
+    Page<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone, Pageable pageable);
 
     Page<HospedeVO> findAllinHotel(Pageable pageable);
 

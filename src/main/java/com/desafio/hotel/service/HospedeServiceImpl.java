@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,9 +56,20 @@ public class HospedeServiceImpl implements HospedeService {
         }
     }
 
+    public Hospede findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(
+            Long id, String nome, String numeroDocumento, String numeroTelefone) {
+        return hospedeRepository.findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(id, nome, numeroDocumento, numeroTelefone);
+    }
+
     @Override
-    public Hospede findFirstByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone) {
-        return hospedeRepository.findFirstByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone);
+    public Page<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(
+            String nome, String numeroDocumento, String numeroTelefone, Pageable pageable) {
+
+        if (StringUtils.isEmpty(nome) && StringUtils.isEmpty(numeroDocumento) && StringUtils.isEmpty(numeroTelefone)) {
+            return null;
+        } else {
+            return hospedeRepository.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone, pageable);
+        }
     }
 
     @Override
