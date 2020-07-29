@@ -2,9 +2,6 @@ package com.desafio.hotel.domain.repository.customRepository;
 
 import com.desafio.hotel.domain.entity.Hospede;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -19,8 +16,8 @@ public class HospedeCustomReposotoryImpl implements HospedeCustomReposotory {
     private EntityManager entityManager;
 
     @Override
-    public Page<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(
-            String nome, String numeroDocumento, String numeroTelefone, Pageable pageable) {
+    public List<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(
+            String nome, String numeroDocumento, String numeroTelefone) {
 
         StringBuilder stringQuery = new StringBuilder();
         Map<String, String> parameters = new HashMap<>();
@@ -48,8 +45,6 @@ public class HospedeCustomReposotoryImpl implements HospedeCustomReposotory {
         TypedQuery<Hospede> query = entityManager.createQuery(stringQuery.toString(), Hospede.class);
         parameters.forEach((k,v) -> query.setParameter(k,v));
 
-        List<Hospede> resultQuery = query.getResultList();
-
-        return new PageImpl<>(resultQuery, pageable, resultQuery.size());
+        return query.getResultList();
     }
 }

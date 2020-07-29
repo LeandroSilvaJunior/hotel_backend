@@ -2,14 +2,14 @@ package com.desafio.hotel.service;
 
 import com.desafio.hotel.domain.entity.Hospede;
 import com.desafio.hotel.vo.HospedeVO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface HospedeService {
 
     Hospede findById(Long id);
 
-    Page<Hospede> findAll(Pageable pageable);
+    List<Hospede> findAll();
 
     Hospede create(Hospede hospede);
 
@@ -19,9 +19,9 @@ public interface HospedeService {
 
     Hospede findFirstByIdOrNomeOrNumeroDocumentoOrNumeroTelefone(Long id, String nome, String numeroDocumento, String numeroTelefone);
 
-    Page<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone, Pageable pageable);
+    List<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(String nome, String numeroDocumento, String numeroTelefone);
 
-    Page<HospedeVO> findAllinHotel(Pageable pageable);
+    List<HospedeVO> findAllinHotel();
 
-    Page<HospedeVO> findAllNotinHotel(Pageable pageable);
+    List<HospedeVO> findAllNotinHotel();
 }

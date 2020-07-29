@@ -5,8 +5,6 @@ import com.desafio.hotel.domain.repository.HospedeRepository;
 import com.desafio.hotel.vo.HospedeVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -25,8 +23,8 @@ public class HospedeServiceImpl implements HospedeService {
     }
 
     @Override
-    public Page<Hospede> findAll(Pageable pageable) {
-        return hospedeRepository.findAll(pageable);
+    public List<Hospede> findAll() {
+        return hospedeRepository.findAll();
     }
 
     @Override
@@ -62,24 +60,24 @@ public class HospedeServiceImpl implements HospedeService {
     }
 
     @Override
-    public Page<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(
-            String nome, String numeroDocumento, String numeroTelefone, Pageable pageable) {
+    public List<Hospede> findAllByNomeOrNumeroDocumentoOrNumeroTelefone(
+            String nome, String numeroDocumento, String numeroTelefone) {
 
         if (StringUtils.isEmpty(nome) && StringUtils.isEmpty(numeroDocumento) && StringUtils.isEmpty(numeroTelefone)) {
             return null;
         } else {
-            return hospedeRepository.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone, pageable);
+            return hospedeRepository.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone);
         }
     }
 
     @Override
-    public Page<HospedeVO> findAllinHotel(Pageable pageable) {
-        return hospedeRepository.findAllInHotel(pageable);
+    public List<HospedeVO> findAllinHotel() {
+        return hospedeRepository.findAllInHotel();
     }
 
     @Override
-    public Page<HospedeVO> findAllNotinHotel(Pageable pageable) {
-        return hospedeRepository.findAllNotInHotel(pageable);
+    public List<HospedeVO> findAllNotinHotel() {
+        return hospedeRepository.findAllNotInHotel();
     }
 
     private Hospede atualizarDadosHospede(Hospede hospedeFonte, Hospede hospedeAlvo) {

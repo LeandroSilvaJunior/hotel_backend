@@ -1,14 +1,14 @@
 package com.desafio.hotel.service;
 
 import com.desafio.hotel.domain.entity.Estadia;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface EstadiaService {
 
     Estadia findById(Long id);
 
-    Page<Estadia> findAll(Pageable pageable);
+    List<Estadia> findAll();
 
     Estadia create(Estadia estadia) throws Exception;
 

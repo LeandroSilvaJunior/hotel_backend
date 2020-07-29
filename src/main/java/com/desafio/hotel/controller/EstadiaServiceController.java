@@ -3,13 +3,12 @@ package com.desafio.hotel.controller;
 import com.desafio.hotel.domain.entity.Estadia;
 import com.desafio.hotel.service.EstadiaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("estadia")
@@ -34,9 +33,9 @@ public class EstadiaServiceController implements ServiceController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> listAll(Pageable pageable) {
+    public ResponseEntity<?> listAll() {
         try {
-            Page<Estadia> estadia = estadiaService.findAll(pageable);
+            List<Estadia> estadia = estadiaService.findAll();
 
             if (estadia == null) {
                 return ResponseEntity.notFound().build();

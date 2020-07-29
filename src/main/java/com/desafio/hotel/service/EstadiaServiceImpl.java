@@ -5,13 +5,12 @@ import com.desafio.hotel.domain.entity.Hospede;
 import com.desafio.hotel.domain.repository.EstadiaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,7 +28,7 @@ public class EstadiaServiceImpl implements EstadiaService{
     }
 
     @Override
-    public Page<Estadia> findAll(Pageable pageable) { return estadiaRepository.findAll(pageable); }
+    public List<Estadia> findAll() { return estadiaRepository.findAll(); }
 
     @Override
     public Estadia create(Estadia estadia) throws Exception {

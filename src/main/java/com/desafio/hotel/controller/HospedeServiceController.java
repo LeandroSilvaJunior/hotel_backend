@@ -4,14 +4,13 @@ import com.desafio.hotel.domain.entity.Hospede;
 import com.desafio.hotel.service.HospedeService;
 import com.desafio.hotel.vo.HospedeVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("hospede")
@@ -36,9 +35,9 @@ public class HospedeServiceController implements ServiceController{
     }
 
     @GetMapping()
-    public ResponseEntity<?> listAll(Pageable pageable) {
+    public ResponseEntity<?> listAll() {
         try {
-            Page<Hospede> hospedes = hospedeService.findAll(pageable);
+            List<Hospede> hospedes = hospedeService.findAll();
 
             if (hospedes == null) {
                 return ResponseEntity.notFound().build();
@@ -51,9 +50,9 @@ public class HospedeServiceController implements ServiceController{
     }
 
     @GetMapping("/inHotel")
-    public ResponseEntity<?> listAllInHotel(Pageable pageable) {
+    public ResponseEntity<?> listAllInHotel() {
         try {
-            Page<HospedeVO> hospedes = hospedeService.findAllinHotel(pageable);
+            List<HospedeVO> hospedes = hospedeService.findAllinHotel();
 
             if (hospedes == null) {
                 return ResponseEntity.notFound().build();
@@ -66,9 +65,9 @@ public class HospedeServiceController implements ServiceController{
     }
 
     @GetMapping("/notInHotel")
-    public ResponseEntity<?> listAllNotInHotel(Pageable pageable) {
+    public ResponseEntity<?> listAllNotInHotel() {
         try {
-            Page<HospedeVO> hospedes = hospedeService.findAllNotinHotel(pageable);
+            List<HospedeVO> hospedes = hospedeService.findAllNotinHotel();
 
             if (hospedes == null) {
                 return ResponseEntity.notFound().build();
@@ -84,10 +83,10 @@ public class HospedeServiceController implements ServiceController{
     public ResponseEntity<?> listAllByNomeOrNumeroDocumentoOrNumeroTelefone(
             @PathParam("nome") String nome,
             @PathParam("numeroDocumento") String numeroDocumento,
-            @PathParam("numeroTelefone") String numeroTelefone,
-            Pageable pageable) {
+            @PathParam("numeroTelefone") String numeroTelefone) {
+
         try {
-            Page<Hospede> hospedes = hospedeService.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone, pageable);
+            List<Hospede> hospedes = hospedeService.findAllByNomeOrNumeroDocumentoOrNumeroTelefone(nome, numeroDocumento, numeroTelefone);
 
             if (hospedes == null) {
                 return ResponseEntity.notFound().build();
