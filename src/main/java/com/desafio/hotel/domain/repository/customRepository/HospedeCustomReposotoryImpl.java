@@ -43,7 +43,7 @@ public class HospedeCustomReposotoryImpl implements HospedeCustomReposotory {
         }
 
         TypedQuery<Hospede> query = entityManager.createQuery(stringQuery.toString(), Hospede.class);
-        parameters.forEach((k,v) -> query.setParameter(k,v));
+        parameters.forEach(query::setParameter);
 
         return query.getResultList();
     }
